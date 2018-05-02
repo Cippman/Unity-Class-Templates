@@ -1,7 +1,7 @@
-﻿using System;
+﻿using UnityEngine;
+using System;
 using System.IO;
 using CippSharp.ClassTemplates.Extensions;
-
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -13,21 +13,27 @@ namespace CippSharp.ClassTemplates
         /// <summary>
         /// Create a file at path.
         /// </summary>
-        /// <param name="path"></param>
+        /// <param name="fullPath"></param>
         /// <param name="lines"></param>
-        public static void CreateFile(string path, string[] lines)
+        public static void CreateFile(string fullPath, string[] lines)
         {
-            if (File.Exists(path))
+            if (string.IsNullOrEmpty(fullPath))
             {
-                UnityEngine.Debug.LogError("File already exist. Please specify another name!");
+                Debug.LogError("Given path is null or empty!");
                 return;
             }
-
-            string directory = Path.GetDirectoryName(path);
+            
+            string directory = Path.GetDirectoryName(fullPath);
             DirectoryUtility.CreateFolder(directory);
-
-            File.Create(path).Dispose();
-            FileStream fileStream = new FileStream(path, FileMode.OpenOrCreate);
+         
+            if (File.Exists(fullPath))
+            {
+                Debug.LogError("File already exist!");
+                return;
+            }
+            
+            File.Create(fullPath).Dispose();
+            FileStream fileStream = new FileStream(fullPath, FileMode.OpenOrCreate);
             TextWriter textWriter = new StreamWriter(fileStream);
             for (int i = 0; i < lines.Length; i++)
             {
@@ -39,7 +45,7 @@ namespace CippSharp.ClassTemplates
 #if UNITY_EDITOR
             if (directory.Contains("Assets/"))
             {
-                AssetDatabase.ImportAsset(path);
+                AssetDatabase.ImportAsset(fullPath);
             }
 #endif
         }
