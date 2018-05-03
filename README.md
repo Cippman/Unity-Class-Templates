@@ -6,3 +6,6 @@ With this you'll be allowed to right click and create some default class templat
 
 -->Actually WIP and sorry for missing documentation.
 Just discover it by yourself if you're interested.
+
+# IMPORTANT:
+Requires: https://github.com/Cippman/Unity-Reorderable-List to avoid some null references.
