@@ -1,5 +1,7 @@
-//This Struct was offered by "Cippman".
+//This struct was offered by "Cippman".
 using UnityEngine;
+
 public struct Test {
+
 
 }
