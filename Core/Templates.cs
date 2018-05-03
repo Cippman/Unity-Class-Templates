@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using CippSharp.ClassTemplates.Extensions;
-using UnityEngine;
 
 namespace CippSharp.ClassTemplates
 {
@@ -13,7 +12,7 @@ namespace CippSharp.ClassTemplates
         {
             return string.Format("//This {0} was offered by {1}.", thing, by);
         }
-
+       
         public const string namespaceHere = "//Namespace Here";
         public const string codeHere = "//Code Here";
         public const string CSharpExtension = ".cs"; //CippSharp extension :P
@@ -22,7 +21,10 @@ namespace CippSharp.ClassTemplates
         public const string lineFeed = "\n";
         public const string carriageReturnAndLineFeed = carriageReturn + lineFeed;
         public const string openBrace = "{";
+        public const string carriageOpenBrace = carriageReturnAndLineFeed + openBrace;
         public const string closeBrace = "}";
+        public const string carriageCloseBrace = carriageReturnAndLineFeed + closeBrace;
+        public const string slash = "/";
 
         public static string StructIncipit(string valueType)
         {
@@ -42,19 +44,21 @@ namespace CippSharp.ClassTemplates
             {
                 throw new NullReferenceException();
             }
+            
+            
             List<string> structLines = new List<string>();
-            structLines.Add("using UnityEngine;");
-            structLines.Add(carriageReturnAndLineFeed);
-            structLines.Add(carriageReturnAndLineFeed);
-            structLines.Add(namespaceHere);
-            structLines.Add(carriageReturnAndLineFeed);
-            structLines.Add(string.Format("public struct {0}", valueType));
-            structLines.Add(carriageReturnAndLineFeed);
-            structLines.Add(openBrace);
-            structLines.Add(carriageReturnAndLineFeed);
-            structLines.Add(codeHere);
-            structLines.Add(carriageReturnAndLineFeed);
-            structLines.Add(closeBrace);
+//            structLines.Add("using UnityEngine;");
+//            structLines.Add(carriageReturnAndLineFeed);
+//            structLines.Add(carriageReturnAndLineFeed);
+//            structLines.Add(namespaceHere);
+//            structLines.Add(carriageReturnAndLineFeed);
+//            structLines.Add(string.Format("public struct {0}", valueType));
+//            structLines.Add(carriageReturnAndLineFeed);
+//            structLines.Add(openBrace);
+//            structLines.Add(carriageReturnAndLineFeed);
+//            structLines.Add(codeHere);
+//            structLines.Add(carriageReturnAndLineFeed);
+//            structLines.Add(closeBrace);
             return structLines;
         }
 

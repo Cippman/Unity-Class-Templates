@@ -1,59 +1,164 @@
 //This struct was offered by "Cippman".
+
+using System;
 using System.Collections.Generic;
+using CippSharp.ClassTemplates.Extensions;
 
 namespace CippSharp.ClassTemplates
 {
-    public struct ClassFile
+    public class ClassFile
     {
-        public static ClassFile Empty = new ClassFile(null);
+        public const string _using = "using";
+        public const string _declaration = "declaration";
+        //Usings
         
-        public readonly List<string> lines;
+        private List<ClassLine> usingsLines = new List<ClassLine>();
+        
+        //Space
+        
+        //Namespace declaration
+        private ClassLine namespaceLine = ClassLine.Empty;
+        
+        //Class declaration
+        private List<ClassLine> classAttributes = new List<ClassLine>(); 
+        private ClassLine classDeclaration = new ClassLine();
+        
+        //Class body
+        //minimum indent level 1
+        private readonly List<ClassLine> classBody = new List<ClassLine>();
+        
+        //Close class
+        
+        //Close namespace
 
-        public ClassFile(List<string> lines)
+        public ClassFile(ClassLine classDeclaration)
         {
-            this.lines = new List<string>();
-            this.lines.AddRange(lines);
+            this.classDeclaration = classDeclaration;
+            classBody.Clear();
         }
 
-        public bool Equals(ClassFile other)
+        public void AddUsing(ClassLine newUsing)
         {
-            return Equals(lines, other.lines);
+            usingsLines.Add(newUsing);
         }
 
-        public override bool Equals(object obj)
+        public void ClearUsings()
         {
-            if (ReferenceEquals(null, obj))
+            usingsLines.Clear();
+        }
+
+        public void SetNamespace(ClassLine _namespace)
+        {
+            namespaceLine = _namespace;
+        }
+
+        public void RemoveNamespace()
+        {
+            namespaceLine = ClassLine.Empty;
+        }
+
+        public void AddClassAttributes(ClassLine newClassAttribute)
+        {
+            classAttributes.Add(newClassAttribute);
+        }
+
+        public void ClearClassAttributes()
+        {
+            classAttributes.Clear();
+        }
+
+        public void SetClassDeclaration(ClassLine newClassDeclaration)
+        {
+            this.classDeclaration = newClassDeclaration;
+        }
+
+        public void AddLineToClassBody(ClassLine newClassBodyLine)
+        {
+            classBody.Add(newClassBodyLine);
+        }
+
+        public void ClearClassBody()
+        {
+            classBody.Clear();
+        }
+
+        public List<string> Compile()
+        {
+            List<string> tmpLines = new List<string>();
+            foreach (ClassLine usingsLine in usingsLines)
             {
-                return false;
+                tmpLines.Add(Templates.carriageReturnAndLineFeed);
+                tmpLines.Add(usingsLine.ToString());
             }
-            return obj is ClassFile && Equals((ClassFile) obj);
-        }
+            
+            tmpLines.Add(Templates.carriageReturnAndLineFeed);
+            
+            bool hasNamespace = namespaceLine != ClassLine.Empty;
+            if (hasNamespace)
+            {
+               tmpLines.Add(namespaceLine.ToString());
+               tmpLines.Add(Templates.carriageOpenBrace);
+            }
+            
+            tmpLines.Add(Templates.carriageReturnAndLineFeed);
+            
+            foreach (ClassLine attributeLine in classAttributes)
+            {
+                if (hasNamespace)
+                {
+                    attributeLine.AddTab();
+                }
+                
+                tmpLines.Add(Templates.carriageReturnAndLineFeed);
+                tmpLines.Add(attributeLine.ToString());
+                
+                if (hasNamespace)
+                {
+                    attributeLine.RemoveTabs();
+                }
+            }
+            
+            if (hasNamespace)
+            {
+                classDeclaration.AddTab();
+            }
+            
+            tmpLines.Add(classDeclaration.ToString());
+            
+            if (hasNamespace)
+            {
+                classDeclaration.RemoveTabs();
+            }
 
-        public override int GetHashCode()
-        {
-            return (lines != null ? lines.GetHashCode() : 0);
-        }
+            string tabbedClassDeclarationOpenBrace = (hasNamespace) ? Templates.carriageReturnAndLineFeed + Templates.tab + Templates.tab + Templates.openBrace : Templates.carriageOpenBrace;
+            tmpLines.Add(tabbedClassDeclarationOpenBrace);
 
-        public static bool operator ==(ClassFile left, ClassFile right)
-        {
-            return left.Equals(right);
-        }
+            tmpLines.Add(Templates.carriageReturnAndLineFeed);
+            
+            foreach (ClassLine classBodyLine in classBody)
+            {
+                if (hasNamespace)
+                {
+                    classBodyLine.AddTab();
+                }
+                classBodyLine.AddTab();
+                
+                tmpLines.Add(classBodyLine.ToString());
+                
+                classBodyLine.RemoveTabs();
+            }
+            
+            tmpLines.Add(Templates.carriageReturnAndLineFeed);
+            
+            string tabbedClassDeclarationCloseBrace = (hasNamespace) ? Templates.carriageReturnAndLineFeed + Templates.tab + Templates.tab + Templates.closeBrace : Templates.carriageCloseBrace;
+            tmpLines.Add(tabbedClassDeclarationCloseBrace);
 
-        public static bool operator !=(ClassFile left, ClassFile right)
-        {
-            return !left.Equals(right);
-        }
+            if (hasNamespace)
+            {
+                tmpLines.Add(Templates.closeBrace);
+            }
 
-        public static implicit operator List<string>(ClassFile classFile)
-        {
-            List<string> lines = new List<string>();
-            lines.AddRange(classFile.lines);
-            return lines;
-        }
-
-        public static implicit operator ClassFile(List<string> lines)
-        {
-            return new ClassFile(lines);
+            return tmpLines;
         }
     }
 }

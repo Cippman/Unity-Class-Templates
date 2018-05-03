@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using CippSharp.ClassTemplates.Extensions;
 
 #if UNITY_EDITOR
@@ -11,7 +13,6 @@ namespace CippSharp.ClassTemplates
     {
 #if UNITY_EDITOR
         [MenuItem("Assets/Create/Class Templates/Empty Struct", false, 10)]
-        [MenuItem("ROBE/Class Templates/Empty Struct", false, 10)]
         public static void CreateEmptyStruct()
         {
             EmptyStructPopup emptyStructPopup = EmptyStructPopup.OpenPopup();
@@ -39,17 +40,42 @@ namespace CippSharp.ClassTemplates
             {
                 return;
             }
-            
+
             if (string.IsNullOrEmpty(type))
             {
                 return;
             }
+
+            string emptyStructTemplate = AssetDatabaseUtility.GetAssetPath("EmptyStructTemplate", "l:ClassTemplate");
+       
+            if (string.IsNullOrEmpty(emptyStructTemplate))
+            {
+                return;
+            }
+
+            List<string> linesToWrite = new List<string>();
+            linesToWrite.Add(Templates.ThingOffered("struct"));
             
-            List<string> lines = new List<string>();
-            lines.Add(Templates.ThingOffered("struct"));
-            lines.Add(Templates.StructIncipit(type));
-            lines.Add(Templates.closeBrace);
-            Writer.CreateFile(fullPath, lines.ToArray());
+            string[] allFileLines = File.ReadAllLines(emptyStructTemplate);
+            
+            for (int i = 0; i < allFileLines.Length; i++)
+            {
+                if (allFileLines[i].Contains("<Type>"))
+                {
+                    allFileLines[i] = allFileLines[i].Replace("<Type>", type);
+                }
+
+                linesToWrite.Add(allFileLines[i]);
+            }
+
+            Writer.CreateFile(fullPath, linesToWrite.ToArray());
         }
+
+#if UNITY_EDITOR
+        public static void CreateEmptyClass()
+        {
+            
+        }
+#endif
     }
 }
