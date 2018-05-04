@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace CippSharp.ClassTemplates.Extensions
 {
@@ -63,6 +64,29 @@ namespace CippSharp.ClassTemplates.Extensions
         public static string AddSuffix(this string value, string suffix)
         {
             return string.Concat(value, suffix);
+        }
+
+
+        /// <summary>
+        /// Sorround a string's list with some strings before and after.
+        /// </summary>
+        /// <param name="values"></param>
+        /// <param name="before"></param>
+        /// <param name="after"></param>
+        /// <returns></returns>
+        public static List<string> SorroundWith (this List<string> values, IEnumerable<string> before = null, IEnumerable<string> after = null) 
+        {
+            List<string> sorroundedList = new List<string>();
+            if (before != null)
+            {
+                sorroundedList.AddRange(before);
+            }
+            sorroundedList.AddRange(values);
+            if (after != null)
+            {
+                sorroundedList.AddRange(after);
+            }
+            return sorroundedList;
         }
     }
 }

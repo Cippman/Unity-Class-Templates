@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using CippSharp.ClassTemplates.Extensions;
 
 namespace CippSharp.ClassTemplates
 {
@@ -12,10 +10,16 @@ namespace CippSharp.ClassTemplates
         {
             return string.Format("//This {0} was offered by {1}.", thing, by);
         }
-       
-        public const string namespaceHere = "//Namespace Here";
-        public const string codeHere = "//Code Here";
+
+        //Placeholders
+        public const string placeholderType = "<Type>";
+        public const string placeholderNamespace = "<Namespace>";
+        //Keyword names
+        public const string namespaceKeyword = "namespace";
+        
         public const string CSharpExtension = ".cs"; //CippSharp extension :P
+        
+        //String utilities
         public const string tab = "\t";
         public const string carriageReturn = "\r";
         public const string lineFeed = "\n";
@@ -26,7 +30,7 @@ namespace CippSharp.ClassTemplates
         public const string carriageCloseBrace = carriageReturnAndLineFeed + closeBrace;
         public const string slash = "/";
 
-        public static string StructIncipit(string valueType)
+        /*public static string StructIncipit(string valueType)
         {
             if (string.IsNullOrEmpty(valueType))
             {
@@ -47,47 +51,7 @@ namespace CippSharp.ClassTemplates
             
             
             List<string> structLines = new List<string>();
-//            structLines.Add("using UnityEngine;");
-//            structLines.Add(carriageReturnAndLineFeed);
-//            structLines.Add(carriageReturnAndLineFeed);
-//            structLines.Add(namespaceHere);
-//            structLines.Add(carriageReturnAndLineFeed);
-//            structLines.Add(string.Format("public struct {0}", valueType));
-//            structLines.Add(carriageReturnAndLineFeed);
-//            structLines.Add(openBrace);
-//            structLines.Add(carriageReturnAndLineFeed);
-//            structLines.Add(codeHere);
-//            structLines.Add(carriageReturnAndLineFeed);
-//            structLines.Add(closeBrace);
             return structLines;
-        }
-
-        public static void AddNamespace(List<string> lines, string _namespace)
-        {
-            List<string> tmpLines = new List<string>();
-            int indexOfNamespace = -1;
-            for (int i = 0; i < lines.Count; i++)
-            {
-                string currentLine = lines[i];
-                if (currentLine == namespaceHere)
-                {
-                    indexOfNamespace = i;
-                    tmpLines.Add(string.Format("namespace {0}", _namespace));
-                    continue;
-                }
-
-                if (indexOfNamespace < 0)
-                {
-                    tmpLines.Add(currentLine);
-                    continue;
-                }
-
-                if (i > indexOfNamespace)
-                {
-                    //Start Indent
-                    //lines[]
-                }
-            }
         }
 
         public static string ClassIncipit(string classType)
@@ -128,7 +92,7 @@ namespace CippSharp.ClassTemplates
                                      "[CustomPropertyDrawer(typeof({0}))]"+ carriageReturnAndLineFeed +
                                      "public class {0}PropertyDrawer : PropertyDrawer {1}"+ carriageReturnAndLineFeed, serializableType, openBrace.Return());
             return s;
-        }
+        }*/
     }
 }
 

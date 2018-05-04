@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public struct <Type> 
+namespace <Namespace>
 {
-
+    public struct <Type> 
+    {
+    
+    }
 }

@@ -13,8 +13,7 @@ namespace CippSharp.ClassTemplates
         public event UnityAction<EmptyStructPopup> onClosePopup;
 
         public string typeInputString { get; private set;}
-        //TODO:
-        //public string namespaceInputString { get; private set; }
+        public string namespaceInputString { get; private set; }
         public bool closeConfirmed { get; private set; }
 
         private Vector2 scrollPosition = Vector2.zero;
@@ -36,8 +35,7 @@ namespace CippSharp.ClassTemplates
             GUI.enabled = false;
             EditorGUILayout.TextField("Path", defaultDirectoryPath);
             GUI.enabled = gui;
-            //TODO:
-            //namespaceInputString = EditorGUILayout.TextField("Namespace", namespaceInputString);
+            namespaceInputString = EditorGUILayout.TextField("Namespace", namespaceInputString);
             typeInputString = EditorGUILayout.TextField("Type", typeInputString);
 
             GUILayout.Space(50);

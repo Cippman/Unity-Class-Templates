@@ -1,7 +1,7 @@
-﻿using System;
+﻿using System.IO;
 using System.Collections.Generic;
-using System.IO;
 using CippSharp.ClassTemplates.Extensions;
+using UnityEngine;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -9,8 +9,9 @@ using UnityEditor;
 
 namespace CippSharp.ClassTemplates
 {
-    public static class Creator
+    public static partial class Creator/*vol. 1 struct creation*/ 
     {
+        
 #if UNITY_EDITOR
         [MenuItem("Assets/Create/Class Templates/Empty Struct", false, 10)]
         public static void CreateEmptyStruct()
@@ -34,48 +35,63 @@ namespace CippSharp.ClassTemplates
         }
 #endif
 
-        public static void CreateEmptyStruct(string fullPath, string type, string _namespace = "")
+        public static void CreateEmptyStruct(string fullPath, string structType, string structNamespace = "")
         {
             if (string.IsNullOrEmpty(fullPath))
             {
+                Debug.LogError("Passed path is null or empty!");
                 return;
             }
 
-            if (string.IsNullOrEmpty(type))
+            if (string.IsNullOrEmpty(structType))
             {
+                Debug.LogError("Passed structType is null or empty!");
                 return;
             }
 
-            string emptyStructTemplate = AssetDatabaseUtility.GetAssetPath("EmptyStructTemplate", "l:ClassTemplate");
-       
-            if (string.IsNullOrEmpty(emptyStructTemplate))
-            {
-                return;
-            }
-
-            List<string> linesToWrite = new List<string>();
-            linesToWrite.Add(Templates.ThingOffered("struct"));
+            string emptyStructTemplateFilePath = AssetDatabaseUtility.GetAssetPath("EmptyStructTemplate", "l:ClassTemplate");
             
-            string[] allFileLines = File.ReadAllLines(emptyStructTemplate);
-            
-            for (int i = 0; i < allFileLines.Length; i++)
+            if (string.IsNullOrEmpty(emptyStructTemplateFilePath))
             {
-                if (allFileLines[i].Contains("<Type>"))
+                Debug.LogError("Missing a EmptyStructTemplate file in project. And ensure that it's labeled \"ClassTemplate\"");
+                return;
+            }
+
+            bool hasNamespace = !string.IsNullOrEmpty(structNamespace);
+            List<string> writableLines = new List<string>();
+            string[] s = emptyStructTemplateFilePath.Split(new [] {'\\'});
+           
+            writableLines.Add(Templates.ThingOffered("struct"));
+            
+            string[] templateFileLines = File.ReadAllLines(emptyStructTemplateFilePath);
+            
+            for (int i = 0; i < templateFileLines.Length; i++)
+            {
+                string currentLine = templateFileLines[i];
+                if (currentLine.Contains(Templates.placeholderType))
                 {
-                    allFileLines[i] = allFileLines[i].Replace("<Type>", type);
+                    currentLine = currentLine.Replace(Templates.placeholderType, structType);
                 }
 
-                linesToWrite.Add(allFileLines[i]);
+                if (hasNamespace)
+                {
+                    currentLine = Templates.tab + currentLine;
+                }
+
+                writableLines.Add(currentLine);
             }
 
-            Writer.CreateFile(fullPath, linesToWrite.ToArray());
-        }
+            if (hasNamespace)
+            {
+                List<string> before = new List<string>();
+                before.Add(string.Format(Templates.namespaceKeyword + " {0}", structNamespace));
+                before.Add(Templates.carriageOpenBrace);
+                List<string> after = new List<string>();
+                after.Add(Templates.carriageCloseBrace);
+                writableLines = writableLines.SorroundWith(before, after);
+            }
 
-#if UNITY_EDITOR
-        public static void CreateEmptyClass()
-        {
-            
+            Writer.CreateFile(fullPath, writableLines.ToArray());
         }
-#endif
     }
 }
