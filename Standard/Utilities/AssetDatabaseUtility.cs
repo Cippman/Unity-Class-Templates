@@ -1,4 +1,8 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+
+using Object = UnityEngine.Object;
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -16,7 +20,7 @@ namespace CippSharp.ClassTemplates
 		{
 			string path = "Assets";
 
-			foreach (UnityEngine.Object obj in Selection.GetFiltered(typeof(UnityEngine.Object), SelectionMode.Assets))
+			foreach (Object obj in Selection.GetFiltered(typeof(UnityEngine.Object), SelectionMode.Assets))
 			{
 				path = AssetDatabase.GetAssetPath(obj);
 				if (!string.IsNullOrEmpty(path) && File.Exists(path))
@@ -30,6 +34,7 @@ namespace CippSharp.ClassTemplates
 		}
 #endif
 
+#if UNITY_EDITOR
 		public static string GetAssetPath(string filename, string filter, string[] folders = null)
 		{
 			string[] assetsPaths = GetAssetsPath(filter, folders);
@@ -49,6 +54,7 @@ namespace CippSharp.ClassTemplates
 
 			return string.Empty;
 		}
+#endif
 
 #if UNITY_EDITOR
 		/// <summary>
@@ -67,6 +73,28 @@ namespace CippSharp.ClassTemplates
 			}
 
 			return paths;
+		}
+#endif
+
+#if UNITY_EDITOR
+		public static T GetAsset<T>(Predicate<T> predicate) where T : Object
+		{
+			string[] paths = GetAssetsPath("t:" + typeof(T).FullName, null);
+			if (paths == null || paths.Length < 1)
+			{
+				return null;
+			}
+
+			for (int i = 0; i < paths.Length; i++)
+			{
+				T loadedAsset = AssetDatabase.LoadAssetAtPath<T>(paths[i]);
+				if (predicate(loadedAsset))
+				{
+					return loadedAsset;
+				}
+			}
+
+			return null;
 		}
 #endif
 	}

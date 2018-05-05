@@ -6,15 +6,14 @@ namespace CippSharp.ClassTemplates
     {
         public const string Cippman = "\"Cippman\"";
 
-        public static string ThingOffered(string thing, string by = Cippman)
-        {
-            return string.Format("//This {0} was offered by {1}.", thing, by);
-        }
-
+        
         //Placeholders
         public const string placeholderType = "<Type>";
         public const string placeholderNamespace = "<Namespace>";
+        public const string placeholderClassKeywords = "<Class Keywords>";
+        
         //Keyword names
+        public const string structKeyword = "struct";
         public const string namespaceKeyword = "namespace";
         
         public const string CSharpExtension = ".cs"; //CippSharp extension :P
@@ -30,6 +29,12 @@ namespace CippSharp.ClassTemplates
         public const string carriageCloseBrace = carriageReturnAndLineFeed + closeBrace;
         public const string slash = "/";
 
+        public static string CippSponsor(string thing, string by = Cippman)
+        {
+            return string.Format("//This {0} was offered by {1}.", thing, by);
+        }
+
+        
         /*public static string StructIncipit(string valueType)
         {
             if (string.IsNullOrEmpty(valueType))

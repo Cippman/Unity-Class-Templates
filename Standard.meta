@@ -1,10 +1,9 @@
 fileFormatVersion: 2
-guid: a2630a7f72c350a409c787edf11b1ec2
-labels:
-- ClassTemplate
-timeCreated: 1525382312
+guid: 68f89dbd15f53014aa9713a4179247c1
+folderAsset: yes
+timeCreated: 1525525058
 licenseType: Free
-TextScriptImporter:
+DefaultImporter:
   externalObjects: {}
   userData: 
   assetBundleName: 

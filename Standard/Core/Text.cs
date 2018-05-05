@@ -10,7 +10,7 @@ namespace CippSharp.ClassTemplates
 
         private readonly List<string> phrases;
 
-        private int Count
+        public int Count
         {
             get { return phrases.Count; }
         }
@@ -26,23 +26,23 @@ namespace CippSharp.ClassTemplates
             this.phrases = new List<string>();
         }
 
-        public Text(IEnumerable<string> phrases)
+        public Text(IEnumerable<string> newPhrases)
         {
             this.phrases = new List<string>();
-            if (phrases != null)
+            if (newPhrases != null)
             {
-                this.phrases.AddRange(phrases);
+                this.phrases.AddRange(newPhrases);
             }
         }
 
         public IEnumerator<string> GetEnumerator()
         {
-           return new List<string>.Enumerator(phrases);
+            return phrases.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return (IEnumerator) new List<string>.Enumerator(phrases);
+            return (IEnumerator) phrases.GetEnumerator();
         }
 
         public bool Equals(Text other)
@@ -239,6 +239,13 @@ namespace CippSharp.ClassTemplates
             }
             
             return new Text(subPhrases);
+        }
+
+        public List<string> ToList()
+        {
+            List<string> tmpPhrases = new List<string>();
+            tmpPhrases.AddRange(phrases);
+            return tmpPhrases;
         }
 
     }

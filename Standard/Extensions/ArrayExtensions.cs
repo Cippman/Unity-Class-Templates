@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace CippSharp.ClassTemplates
+namespace CippSharp.ClassTemplates.Extensions
 {
 	public static class ArrayExtensions 
 	{

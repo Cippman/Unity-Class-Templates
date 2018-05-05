@@ -17,5 +17,15 @@ namespace CippSharp.ClassTemplates
             }
         }
         #endif
+        
+        #if UNITY_EDITOR
+        public static void DrawDisabledGUI(UnityAction contents)
+        {
+            bool gui = GUI.enabled;
+            GUI.enabled = false;
+            contents();
+            GUI.enabled = gui;
+        }
+        #endif
     }
 }
