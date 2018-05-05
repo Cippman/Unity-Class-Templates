@@ -10,7 +10,7 @@ namespace CippSharp.ClassTemplates
 
         [SerializeField] public string templateTag = "Untagged";
 
-        [TextArea(3, 256)] 
+        [TextArea(3, 255, order = 1)] 
         [SerializeField] public string template;
     }
 }

@@ -9,8 +9,8 @@ namespace CippSharp.ClassTemplates
 #if UNITY_EDITOR
     public class StructCreatorPopup : TwoChoicesPopup
     {
-        public string typeInputString { get; private set;}
-        public string namespaceInputString { get; private set; }
+        public string namespaceInputString = "MyNamespace";
+        public string typeInputString = "MyStruct";
 
         public static StructCreatorPopup OpenPopup()
         {

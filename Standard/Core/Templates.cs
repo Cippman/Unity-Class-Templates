@@ -6,19 +6,21 @@ namespace CippSharp.ClassTemplates
     {
         public const string Cippman = "\"Cippman\"";
 
-        
         //Placeholders
         public const string placeholderType = "<Type>";
         public const string placeholderNamespace = "<Namespace>";
         public const string placeholderClassKeywords = "<Class Keywords>";
+        public const string placeholderInheritance = "<Inheritance>";
         
         //Keyword names
         public const string structKeyword = "struct";
+        public const string classKeyword = "class";
         public const string namespaceKeyword = "namespace";
         
         public const string CSharpExtension = ".cs"; //CippSharp extension :P
         
         //String utilities
+        public const string space = " ";
         public const string tab = "\t";
         public const string carriageReturn = "\r";
         public const string lineFeed = "\n";

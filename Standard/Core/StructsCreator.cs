@@ -57,10 +57,10 @@ namespace CippSharp.ClassTemplates
 
             string validWritableTemplate = (hasNamespace)
                 ? templateObject.template.Replace(Templates.placeholderType, structType)
-                : templateObject.template.Replace(Templates.placeholderType, structType)
-                    .Replace(Templates.placeholderNamespace, structNamespace);
+                    .Replace(Templates.placeholderNamespace, structNamespace)
+                : templateObject.template.Replace(Templates.placeholderType, structType);
 
-            Writer.CreateFile(fullPath, new[] {validWritableTemplate});
+            Writer.CreateFile(fullPath, new[] {Templates.CippSponsor(Templates.structKeyword), validWritableTemplate});
         }
 #endif
         

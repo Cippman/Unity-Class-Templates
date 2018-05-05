@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-namespace CippSharp.ClassTemplates
+namespace CippSharp.ClassTemplates.Extensions
 {
 	public static class IntExtensions
 	{

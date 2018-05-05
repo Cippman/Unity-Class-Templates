@@ -9,8 +9,9 @@ namespace CippSharp.ClassTemplates
 #if UNITY_EDITOR
 	public class ClassCreatorPopup : TwoChoicesPopup
 	{
-		public string typeInputString { get; private set;}
-		public string namespaceInputString { get; private set; }
+		public string namespaceInputString = "MyNamespace";
+		public string typeInputString = "NewBehaviourScript";
+		public string inheritance = "MonoBehaviour";
 		public string[] classKeywords = new string[0];
 
 		private SerializedObject serializedObject;
@@ -39,6 +40,7 @@ namespace CippSharp.ClassTemplates
 			EditorGUILayout.LabelField("Insert a type and confirm!", EditorStyles.wordWrappedLabel);
 			namespaceInputString = EditorGUILayout.TextField("Namespace", namespaceInputString);
 			typeInputString = EditorGUILayout.TextField("Type", typeInputString);
+			inheritance = EditorGUILayout.TextField("Inheritance", inheritance);
 			serializedObject.Update();
 			EditorGUILayout.PropertyField(ser_ClassKeywords, true);
 			serializedObject.ApplyModifiedProperties();

@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using CippSharp.ClassTemplates.Extensions;
 
 #if UNITY_EDITOR
@@ -11,7 +10,7 @@ namespace CippSharp.ClassTemplates
 	public static partial class Creator /*vol. 2 class creation*/
 	{
 #if UNITY_EDITOR
-		[MenuItem("Assets/Create/Class Templates/Empty Struct", false, 10)]
+		[MenuItem("Assets/Create/Class Templates/Empty Class", false, 10)]
 		public static void CreateEmptyClass()
 		{
 			ClassCreatorPopup classCreatorPopup = ClassCreatorPopup.OpenPopup();
@@ -26,12 +25,13 @@ namespace CippSharp.ClassTemplates
 				string directory = classCreatorPopup.selectedPath.Slash();
 				string fileName = classCreatorPopup.typeInputString + Templates.CSharpExtension;
 				string nam = classCreatorPopup.namespaceInputString;
+				string inherit = classCreatorPopup.inheritance;
 				string[] keywords = classCreatorPopup.classKeywords;
-				CreateEmptyClass(directory + fileName, classCreatorPopup.typeInputString, nam, keywords);
+				CreateEmptyClass(directory + fileName, classCreatorPopup.typeInputString, nam, inherit, keywords);
 			}
 		}
 
-		public static void CreateEmptyClass(string fullPath, string classType, string classNamespace = "", string[] classKeywords = null)
+		public static void CreateEmptyClass(string fullPath, string classType, string classNamespace = "", string classInheritance = "", string[] classKeywords = null)
 		{
 			if (string.IsNullOrEmpty(fullPath))
 			{
@@ -55,11 +55,11 @@ namespace CippSharp.ClassTemplates
 				Debug.LogError("No template object found for structs");
 				return;
 			}
-			
+
 			string validWritableTemplate = (hasNamespace)
 				? templateObject.template.Replace(Templates.placeholderType, classType)
-				: templateObject.template.Replace(Templates.placeholderType, classType)
-					.Replace(Templates.placeholderNamespace, classNamespace);
+					.Replace(Templates.placeholderNamespace, classNamespace)
+				: templateObject.template.Replace(Templates.placeholderType, classType);
 
 			bool hasKeywords = !classKeywords.IsNullOrEmpty();
 			int lenght = (hasKeywords) ? classKeywords.Length : -1;
@@ -77,15 +77,15 @@ namespace CippSharp.ClassTemplates
 					{
 						if (i == 0)
 						{
-							replacement += " " + classKeywords[i];
+							replacement += Templates.space + classKeywords[i];
 						}
 						else if (i == lenght - 1)
 						{
-							replacement += classKeywords[i] + " ";
+							replacement += classKeywords[i] + Templates.space;
 						}
 						else
 						{
-							replacement += " " + classKeywords[i] + " ";
+							replacement += Templates.space + classKeywords[i] + Templates.space;
 						}
 					}
 
@@ -94,10 +94,16 @@ namespace CippSharp.ClassTemplates
 			}
 			else
 			{
-				validWritableTemplate = validWritableTemplate.Replace(Templates.placeholderClassKeywords, string.Empty);
+				validWritableTemplate = validWritableTemplate.Replace(Templates.placeholderClassKeywords, Templates.space);
 			}
+
+			bool hasInheritance = !string.IsNullOrEmpty(classInheritance);
+			validWritableTemplate = hasInheritance 
+				? validWritableTemplate.Replace(Templates.placeholderInheritance, string.Format(" : {0}", classInheritance))
+				: validWritableTemplate.Replace(Templates.placeholderInheritance, string.Empty);
 			
-			Writer.CreateFile(fullPath, new[] {validWritableTemplate});
+			
+			Writer.CreateFile(fullPath, new[] {Templates.CippSponsor(Templates.classKeyword), validWritableTemplate});
 		}
 #endif
 	}

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   templateName: EmptyClass
   templateTag: class
-  template: "using UnityEngine;\r\n\r\npublic<Class Keywords>class <Type> \r\n{\r\n\r\n}"
+  template: "using UnityEngine;\r\n\r\npublic<Class Keywords>class <Type>\r<Inheritance>\n{\r\n\r\n}"
