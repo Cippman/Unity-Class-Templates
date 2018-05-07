@@ -26,6 +26,7 @@ namespace CippSharp.ClassTemplates
                 string directory = propertyDrawerCreatorPopup.selectedPath.Slash();
                 string fileName = propertyDrawerCreatorPopup.typeInputString + Templates.CSharpExtension;
                 string nam = propertyDrawerCreatorPopup.namespaceInputString;
+                CreateEmptyPropertyDrawerClass(directory + fileName, propertyDrawerCreatorPopup.typeInputString, nam);
             }
         }
 
