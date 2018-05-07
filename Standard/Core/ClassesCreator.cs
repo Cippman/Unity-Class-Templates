@@ -10,7 +10,7 @@ namespace CippSharp.ClassTemplates
 	public static partial class Creator /*vol. 2 class creation*/
 	{
 #if UNITY_EDITOR
-		[MenuItem("Assets/Create/Class Templates/Empty Class", false, 10)]
+		[MenuItem("Assets/Create/Class Templates/Class", false, 10)]
 		public static void CreateEmptyClass()
 		{
 			ClassCreatorPopup classCreatorPopup = ClassCreatorPopup.OpenPopup();
@@ -41,18 +41,18 @@ namespace CippSharp.ClassTemplates
 
 			if (string.IsNullOrEmpty(classType))
 			{
-				Debug.LogError("Passed structType is null or empty!");
+				Debug.LogError("Passed classType is null or empty!");
 				return;
 			}
 			
 			bool hasNamespace = !string.IsNullOrEmpty(classNamespace);
 			TemplateObject templateObject = (hasNamespace)
-				? AssetDatabaseUtility.GetAsset<TemplateObject>(t => t.templateName == "EmptyClass with Namespace")
-				: AssetDatabaseUtility.GetAsset<TemplateObject>(t => t.templateName == "EmptyClass");
+				? AssetDatabaseUtility.GetAsset<TemplateObject>(t => t.templateName == "Class with Namespace")
+				: AssetDatabaseUtility.GetAsset<TemplateObject>(t => t.templateName == "Class");
 			
 			if (templateObject == null)
 			{
-				Debug.LogError("No template object found for structs");
+				Debug.LogError("No template object found for classes");
 				return;
 			}
 

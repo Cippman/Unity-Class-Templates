@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9de03232a80f66f419a30980998f297b, type: 3}
   m_Name: CustomPropertyDrawer
   m_EditorClassIdentifier: 
-  templateName: CustomPropertyDrawer
+  templateName: PropertyDrawer
   templateTag: editor class
   template: "using UnityEngine;\r\nusing UnityEditor;\n\n[CustomPropertyDrawer(typeof(<Type>))]\npublic
     class <Type>Drawer : PropertyDrawer\n{\r\n    public override float GetPropertyHeight

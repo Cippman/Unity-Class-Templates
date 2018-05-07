@@ -9,9 +9,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9de03232a80f66f419a30980998f297b, type: 3}
-  m_Name: EmptyStructWithNamespace
+  m_Name: StructWithNamespace
   m_EditorClassIdentifier: 
-  templateName: EmptyStruct with Namespace
+  templateName: Struct with Namespace
   templateTag: struct
   template: "using UnityEngine;\r\n\r\nnamespace <Namespace>\r\n{\r\n    public struct
     <Type> \r\n    {\r\n    \r\n    }\r\n}"

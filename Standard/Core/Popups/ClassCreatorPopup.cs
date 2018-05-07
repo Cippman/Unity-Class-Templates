@@ -9,7 +9,7 @@ namespace CippSharp.ClassTemplates
 #if UNITY_EDITOR
 	public class ClassCreatorPopup : TwoChoicesPopup
 	{
-		public string namespaceInputString = "MyNamespace";
+		public string namespaceInputString = "";
 		public string typeInputString = "NewBehaviourScript";
 		public string inheritance = "MonoBehaviour";
 		public string[] classKeywords = new string[0];

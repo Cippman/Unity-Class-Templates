@@ -7,14 +7,14 @@ using UnityEditor;
 namespace CippSharp.ClassTemplates
 {
 #if UNITY_EDITOR
-	public class CustomEditorCreatorPopup : TwoChoicesPopup
+	public class EditorClassCreatorPopup : TwoChoicesPopup
 	{
-		public string namespaceInputString = "MyNamespace";
+		public string namespaceInputString = "";
 		public string typeInputString = "NewBehaviourScript";
 
-		public static CustomEditorCreatorPopup OpenPopup()
+		public static EditorClassCreatorPopup OpenPopup()
 		{
-			CustomEditorCreatorPopup window = CreateInstance<CustomEditorCreatorPopup>();
+			EditorClassCreatorPopup window = CreateInstance<EditorClassCreatorPopup>();
 			window.position = new Rect(Screen.width / 2, Screen.height / 2, 500, 150);
 			window.ShowPopup();
 			return window;

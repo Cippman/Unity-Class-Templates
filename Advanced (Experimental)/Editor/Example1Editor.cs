@@ -43,7 +43,6 @@ public class Example1Editor : Editor {
 
 	}
 
-	int taskIndex = 0;
 
 	void DrawProperties () {
 

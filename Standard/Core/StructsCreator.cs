@@ -11,7 +11,7 @@ namespace CippSharp.ClassTemplates
     {
         
 #if UNITY_EDITOR
-        [MenuItem("Assets/Create/Class Templates/Empty Struct", false, 10)]
+        [MenuItem("Assets/Create/Class Templates/Struct", false, 10)]
         public static void CreateEmptyStruct()
         {
             StructCreatorPopup structCreatorPopup = StructCreatorPopup.OpenPopup();
@@ -46,8 +46,8 @@ namespace CippSharp.ClassTemplates
 
             bool hasNamespace = !string.IsNullOrEmpty(structNamespace);
             TemplateObject templateObject = (hasNamespace)
-                ? AssetDatabaseUtility.GetAsset<TemplateObject>(t => t.templateName == "EmptyStruct with Namespace")
-                : AssetDatabaseUtility.GetAsset<TemplateObject>(t => t.templateName == "EmptyStruct");
+                ? AssetDatabaseUtility.GetAsset<TemplateObject>(t => t.templateName == "Struct with Namespace")
+                : AssetDatabaseUtility.GetAsset<TemplateObject>(t => t.templateName == "Struct");
 
             if (templateObject == null)
             {

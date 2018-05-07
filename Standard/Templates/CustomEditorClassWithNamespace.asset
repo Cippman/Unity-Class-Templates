@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9de03232a80f66f419a30980998f297b, type: 3}
   m_Name: CustomEditorClassWithNamespace
   m_EditorClassIdentifier: 
-  templateName: EmptyCustomEditorClass with Namespace
+  templateName: EditorClass with Namespace
   templateTag: editor class
   template: "using UnityEngine;\r\nusing UnityEditor;\n\nnamespace <Namespace>\r\n{\r\n
     \   [CustomEditor(typeof(<Type>))]\n    public class <Type>Editor : Editor\n    {\r\n

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9de03232a80f66f419a30980998f297b, type: 3}
+  m_Name: CustomPropertyDrawerWithNamespace
+  m_EditorClassIdentifier: 
+  templateName: PropertyDrawer with Namespace
+  templateTag: editor class
+  template: "using UnityEngine;\r\nusing UnityEditor;\n\nnamespace <Namespace>\r\n{\n
+    \   [CustomPropertyDrawer(typeof(<Type>))]\n    public class <Type>Drawer : PropertyDrawer\n
+    \   {\r\n        public override float GetPropertyHeight (SerializedProperty property,
+    GUIContent label) \n        {\n            return EdtiorGUI.GetPropertyHeight(property);\n
+    \       }\n\n        public override void OnGUI (Rect position, SerializedProperty
+    property, GUIContent label) \n        {\n    \n        }\n    }\n}"

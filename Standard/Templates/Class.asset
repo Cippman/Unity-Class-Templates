@@ -9,8 +9,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9de03232a80f66f419a30980998f297b, type: 3}
-  m_Name: EmptyStruct
+  m_Name: Class
   m_EditorClassIdentifier: 
-  templateName: EmptyStruct
-  templateTag: struct
-  template: "using UnityEngine;\r\n\npublic struct <Type> \r\n{\r\n    \r\n}\r"
+  templateName: Class
+  templateTag: class
+  template: "using UnityEngine;\r\n\r\npublic<Class Keywords>class <Type>\r<Inheritance>\n{\r\n\r\n}"

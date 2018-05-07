@@ -62,7 +62,7 @@ namespace CippSharp.ClassTemplates
             Directory.CreateDirectory(directory);
             
             DateTime dateTime = DateTime.Now;
-            string now = string.Format("({0}d_{1}m_{2}y)_({3}h_{4}m_{5}s_{6}ms)",
+            string now = string.Format("[({0}d_{1}m_{2}y)_({3}h_{4}m_{5}s_{6}ms)]",
                 dateTime.Day.ToString(), dateTime.Month.ToString(), dateTime.Year.ToString(),
                 dateTime.Hour.ToString(), dateTime.Minute.ToString(), dateTime.Second.ToString(),
                 dateTime.Millisecond.ToString());

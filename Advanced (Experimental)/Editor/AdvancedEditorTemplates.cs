@@ -121,8 +121,7 @@ namespace Cipp.ClassCreation {
 				Debug.Log ("Mi stai chiedendo di tirarti una sberla!");
 				return tmpSerializedProperties;
 			}
-
-			Type type = obj.GetType ();
+			
 			List<PropertyInfoRef> propertyRefs = ReflectionUtilities.ClassDefaultProperties (obj);
 			List<FieldInfoRef> fieldRefs = ReflectionUtilities.ClassDefaultFields (obj);
 			SerializedObject serObj = new SerializedObject ((UnityEngine.Object)obj);
